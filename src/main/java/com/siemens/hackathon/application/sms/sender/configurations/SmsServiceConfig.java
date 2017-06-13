@@ -30,7 +30,6 @@ public class SmsServiceConfig {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
-
 	@Bean(name = "rtWithProxy")
 	public RestTemplate restTemplateWithProxy() {
 		RestTemplate restTemplate = new RestTemplate();

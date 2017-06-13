@@ -53,6 +53,7 @@ dependencies {
     compile ("org.projectlombok:lombok:1.16.16")
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+    compile 'net.sf.json-lib:json-lib:2.4'
 }
 
 

@@ -30,8 +30,6 @@ public class ActionItem {
 	@Getter
 	@Column(name="TYPE")
 	private String type;
-/*	@Column(name="ALARMID")
-	private long alarmId;*/
 	
 	@Setter
 	@Getter
@@ -48,11 +46,23 @@ public class ActionItem {
 	@Column(name="FEEDBACK")
 	private String feedback;
 	
-	public ActionItem(String type, boolean ack, String status, String feedbk){
+	@Setter
+	@Getter
+	@Column(name="LATITUDE")
+	private String latitude;
+	
+	@Setter
+	@Getter
+	@Column(name="LONGITUDE")
+	private String longitude;
+	
+	public ActionItem(String type, boolean ack, String status, String lat, String lng, String feedbk){
 		this.type = type;
 		this.acknowledged = ack;
 		this.status=status;
 		this.feedback=feedbk;
+		this.latitude=lat;
+		this.longitude=lng;
 		
 	}
 	

@@ -51,7 +51,7 @@ public class HackathonApp extends SpringBootServletInitializer{
 			alarm.setLatitude("18.53100857");
 			alarm.setLongitude("73.84438992");
 			alarm.setVehicleType("2W");
-			alarm.setUserID(1l);
+//			alarm.setUserID(1l);
 			Map<String, List<Integer>> countMap = new HashMap <String, List<Integer>>();
 			Integer[] i = {121, 99, 222, 250, 102, 160, 110, 120};
 			countMap.put("tw",Arrays.asList(i));
@@ -60,7 +60,7 @@ public class HackathonApp extends SpringBootServletInitializer{
 			Integer[] i2 = {100, 30, 112, 20, 212, 116, 115, 212};
 			countMap.put("hv",Arrays.asList(i2));
 			AlarmHistory almHistory =  new AlarmHistory(countMap, new GregorianCalendar(2017,Calendar.JANUARY,31).getTime());
-			ActionItem item = new ActionItem("Police",false, "URGENT", "");
+			ActionItem item = new ActionItem("Police",false, "URGENT", alarm.getLatitude(), alarm.getLongitude(), null);
 			ObjectMapper mapper = new ObjectMapper();
 			System.out.println(mapper.writeValueAsString(user));
 			System.out.println(mapper.writeValueAsString(alarm));

@@ -2,7 +2,7 @@ package com.siemens.hackathon.application.user.registration.entity;
 
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,24 +28,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Alarm {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ALARMID")
-	private Long id;
-	private Long userID;
-	@Column(name = "LATITUDE")
-	private String latitude;
-	@Column(name = "LONGITUDE")
-	private String longitude;
-	@Column(name = "VEHICLETYPE")
-	private String vehicleType;
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinTable(name = "ALARM_TASKS_MAP", joinColumns = { @JoinColumn(name = "ALARMID") }, inverseJoinColumns = {
-			@JoinColumn(name = "ALARMTASKID") })
-	private Set<ActionItem> tasks;
-	@Column(name = "STROKE")
-	private float stroke;
-	
-	@Column(name="ALARM_CREATEDDATE")
-	private Date alarmCreatedDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ALARMID")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private User user;
+
+    @Column(name = "LATITUDE")
+    private String latitude;
+    @Column(name = "LONGITUDE")
+    private String longitude;
+    @Column(name = "VEHICLETYPE")
+    private String vehicleType;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "ALARM_TASKS_MAP", joinColumns = { @JoinColumn(name = "ALARMID") }, inverseJoinColumns = {
+                    @JoinColumn(name = "ALARMTASKID") })
+    private List<ActionItem> tasks;
+    @Column(name = "STROKE")
+    private float stroke;
+
+    @Column(name="ALARM_CREATEDDATE")
+    private Date alarmCreatedDate;
+    @Column(name="OCCURENCEAREA")
+    private String areaOfOccurence;
+    private long uId;
 }
