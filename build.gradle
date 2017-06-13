@@ -52,6 +52,7 @@ dependencies {
 	runtime('com.h2database:h2')
     compile ("org.projectlombok:lombok:1.16.16")
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
 }
 
 

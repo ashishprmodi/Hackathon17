@@ -1,5 +1,7 @@
 package com.siemens.hackathon.application.user.registration.entity;
 
+
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -26,7 +30,7 @@ public class Alarm {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ALARMID")
-	private long id;
+	private Long id;
 	private Long userID;
 	@Column(name = "LATITUDE")
 	private String latitude;
@@ -34,4 +38,13 @@ public class Alarm {
 	private String longitude;
 	@Column(name = "VEHICLETYPE")
 	private String vehicleType;
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinTable(name = "ALARM_TASKS_MAP", joinColumns = { @JoinColumn(name = "ALARMID") }, inverseJoinColumns = {
+			@JoinColumn(name = "ALARMTASKID") })
+	private Set<ActionItem> tasks;
+	@Column(name = "STROKE")
+	private float stroke;
+	
+	@Column(name="ALARM_CREATEDDATE")
+	private Date alarmCreatedDate;
 }
