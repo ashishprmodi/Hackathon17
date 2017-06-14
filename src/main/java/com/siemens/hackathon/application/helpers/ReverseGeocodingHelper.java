@@ -21,7 +21,7 @@ import net.sf.json.JSONSerializer;
 public class ReverseGeocodingHelper {
 
 	@Autowired
-	@Qualifier("rtWithProxy")
+	@Qualifier("rtWithoutProxy")
 	private RestTemplate restTemplate;
 
 	public String reverseGeocode(String latitude, String longitude) {
@@ -47,10 +47,7 @@ public class ReverseGeocodingHelper {
 					break;
 				}
 			}
-			// formatted_address = rec.getString("formatted_address");
-			// conn.disconnect();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return long_name;

@@ -29,7 +29,7 @@ import com.siemens.hackathon.application.user.registration.entity.SosEvent;
 public class SmsServiceImpl implements SmsService {
 
     @Autowired
-    @Qualifier("rtWithProxy")
+    @Qualifier("rtWithoutProxy")
     private RestTemplate restTemplate;
 
     @Value("${sms.service.sender}")

@@ -242,16 +242,15 @@ public class AlarmController {
 		int cnt = 0;
 		while (i.hasNext()) {
 			String name = i.next();
-			System.out.println("cnt" + cnt + "--" + name);
 			for (Alarm a : alarms) {
 				if (a.getAreaOfOccurence().equals(name)) {
-					if (a.getStroke() >= 200) {
+					if (a.getStroke() >= 85) {
 						cList[cnt]++;
 					}
-					if (a.getStroke() >= 150 && a.getStroke() < 200) {
+					if (a.getStroke() >= 75 && a.getStroke() < 85) {
 						mList[cnt]++;
 					}
-					if (a.getStroke() >= 100 && a.getStroke() < 150) {
+					if (a.getStroke() >= 70 && a.getStroke() < 75) {
 						iList[cnt]++;
 					}
 				}
