@@ -221,14 +221,27 @@ public class AlarmController {
 		task.setStatus(status);
 		taskRepo.save(task);
 	}
-	
+
 	@PutMapping(value = "//task/ack/{taskId}")
-	public ResponseEntity<?>  acknowledgeTask(@PathVariable String taskId) {
+	public ResponseEntity<?> acknowledgeTask(@PathVariable String taskId) {
 		ActionItem task = taskRepo.findOne(Long.parseLong(taskId));
-		if(null != task)
+		if (null != task)
 			task.setAcknowledged(!task.isAcknowledged());
 		taskRepo.save(task);
-		return new ResponseEntity<AccidentAnalysis>(HttpStatus.OK);
+		return new ResponseEntity<ActionItem>(HttpStatus.OK);
+	}
+
+	@GetMapping(produces = "application/json", value = "/ack/{taskType}")
+	public ResponseEntity<?> acknowledgeAllTasksByType(@PathVariable String taskType) {
+		List<ActionItem> tasks = taskRepo.findAllByType(taskType);
+		if (null == tasks || tasks.isEmpty())
+			return new ResponseEntity<ResponseError>(
+					new ResponseError(HttpStatus.NOT_FOUND.value(), "no alarms found."), HttpStatus.NOT_FOUND);
+		tasks.forEach(a -> {
+			a.setAcknowledged(!a.isAcknowledged());
+			taskRepo.save(a);
+		});
+		return new ResponseEntity<List<ActionItem>>(tasks, HttpStatus.OK);
 	}
 
 	@GetMapping(produces = "application/json", value = "/getAccidentAnalysisData")
