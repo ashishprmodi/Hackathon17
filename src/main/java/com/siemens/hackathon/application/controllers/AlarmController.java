@@ -226,7 +226,7 @@ public class AlarmController {
 	public ResponseEntity<?> acknowledgeTask(@PathVariable String taskId) {
 		ActionItem task = taskRepo.findOne(Long.parseLong(taskId));
 		if (null != task)
-			task.setAcknowledged(!task.isAcknowledged());
+			task.setAcknowledged(true);
 		taskRepo.save(task);
 		return new ResponseEntity<ActionItem>(HttpStatus.OK);
 	}
@@ -238,7 +238,7 @@ public class AlarmController {
 			return new ResponseEntity<ResponseError>(
 					new ResponseError(HttpStatus.NOT_FOUND.value(), "no alarms found."), HttpStatus.NOT_FOUND);
 		tasks.forEach(a -> {
-			a.setAcknowledged(!a.isAcknowledged());
+			a.setAcknowledged(true);
 			taskRepo.save(a);
 		});
 		return new ResponseEntity<List<ActionItem>>(tasks, HttpStatus.OK);
