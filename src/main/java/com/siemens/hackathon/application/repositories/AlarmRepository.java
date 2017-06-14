@@ -10,5 +10,6 @@ import com.siemens.hackathon.application.user.registration.entity.Alarm;
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
 
 	List<Alarm> findByVehicleType(String vehicleType);
+	List<Alarm> findAllByOrderByAlarmCreatedDateDesc();
 	
 }

@@ -168,7 +168,7 @@ public class AlarmController {
 
 	@GetMapping(value = "/alarmData")
 	public List<AlarmDto> fetchAllAlarmData() throws JsonProcessingException {
-		List<Alarm> alarms = alarmRepo.findAll();
+		List<Alarm> alarms = alarmRepo.findAllByOrderByAlarmCreatedDateDesc();
 		List<AlarmDto> alarmDataObjects = new ArrayList<>();
 		alarms.forEach(a -> {
 			List<ActionItem> tasks = a.getTasks();
