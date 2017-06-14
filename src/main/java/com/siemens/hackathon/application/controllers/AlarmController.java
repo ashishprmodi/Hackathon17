@@ -95,6 +95,7 @@ public class AlarmController {
 		// tasks.forEach(t -> taskRepo.save(t));
 
 		createdAlarm.setTasks(tasks);
+		createdAlarm.setUser(user);
 		alarmRepo.save(createdAlarm);
 
 		return new ResponseEntity<Long>(createdAlarm.getId(), HttpStatus.CREATED);
@@ -219,6 +220,15 @@ public class AlarmController {
 		ActionItem task = taskRepo.findOne(id);
 		task.setStatus(status);
 		taskRepo.save(task);
+	}
+	
+	@PutMapping(value = "//task/ack/{taskId}")
+	public ResponseEntity<?>  acknowledgeTask(@PathVariable String taskId) {
+		ActionItem task = taskRepo.findOne(Long.parseLong(taskId));
+		if(null != task)
+			task.setAcknowledged(!task.isAcknowledged());
+		taskRepo.save(task);
+		return new ResponseEntity<AccidentAnalysis>(HttpStatus.OK);
 	}
 
 	@GetMapping(produces = "application/json", value = "/getAccidentAnalysisData")
